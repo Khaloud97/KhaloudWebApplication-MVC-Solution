@@ -1,0 +1,40 @@
+﻿@model Employee
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h2> Add New Employee </h2>
+
+<form asp-action="Create">
+    <div class="form-control">
+        <label asp-for="Name" class="form-control"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-control">
+        <label asp-for="Email" class="form-control"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-control">
+        <label asp-for="City" class="form-control"></label>
+        <input asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+    <div class="form-control">
+        <label asp-for="age" class="form-control"></label>
+        <input asp-for="age" class="form-control" />
+        <span asp-validation-for="age" class="text-danger"></span>
+    </div>
+    <div class="form-control">
+        <label asp-for="Salary" class="form-control"></label>
+        <input asp-for="Salary" class="form-control" />
+        <span asp-validation-for="Salary" class="text-danger"></span>
+    </div>
+
+    <input type="submit" class="btn btn-primary" />
+    | <a asp-action="Index" class="btn btn-dark"> Back to List</a>
+</form>
