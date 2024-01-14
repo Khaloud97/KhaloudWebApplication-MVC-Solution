@@ -7,20 +7,26 @@ namespace KhaloudWebApplication_MVC_.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeReposatory _employeeRepo;
+        private readonly IDepartmentReposatory _departmentRepo;
 
-        public EmployeeController(IEmployeeReposatory employeeRepo)
+        public EmployeeController(IEmployeeReposatory employeeRepo , IDepartmentReposatory departmentRepo)
         {
 
             _employeeRepo = employeeRepo;
+            _departmentRepo = departmentRepo;
         }
-        public IActionResult Create()
+       
+        public IActionResult Index(string search)
         {
-            return View();
-        }
-        public IActionResult Index()
-        {
-            var deps = _employeeRepo.GetAll();
-            return View(deps);
+            IEnumerable<Employee> emps;
+            if (string.IsNullOrEmpty(search))
+            {
+                emps = _employeeRepo.GetAll();
+            }
+            else { emps = _employeeRepo.Search(search);
+            }
+
+            return View(emps);
         }
         public IActionResult Details(int? id)
         {
@@ -31,6 +37,10 @@ namespace KhaloudWebApplication_MVC_.Controllers
             var dep = _employeeRepo.Get(id.Value);
             return View(dep);
 
+        }
+        public IActionResult Create()
+        {
+            return View();
         }
 
         [HttpPost]

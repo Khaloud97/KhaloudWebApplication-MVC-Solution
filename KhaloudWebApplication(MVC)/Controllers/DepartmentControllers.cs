@@ -13,12 +13,12 @@ namespace KhaloudWebApplication_MVC_.Controllers
 
             _departmentRepo = departmentrepo;
         }
-        public IActionResult Create()
-        {
-            return View();
-        }
+       
         public IActionResult Index()
         {
+            ViewBag.massage = "Hello from Action";
+            ViewData["Msg"] = "Hello from ViewData";
+           
             var deps = _departmentRepo.GetAll();
             return View(deps);
         }
@@ -32,6 +32,10 @@ namespace KhaloudWebApplication_MVC_.Controllers
             return View(dep);
 
         }
+        public IActionResult Create()
+        {
+            return View();
+        }
 
         [HttpPost]
         public IActionResult Create(Department dep)
@@ -39,15 +43,20 @@ namespace KhaloudWebApplication_MVC_.Controllers
             if (ModelState.IsValid)
             {
                 _departmentRepo.Create(dep);
-
+                TempData["success"] = "Added Successfully";
                 return RedirectToAction("Index");
             }
             return View();
 
         }
+        public IActionResult Update(int id)
+        {
+            var dep = _departmentRepo.Get(id);
 
+            return View();
+        }
 
-
+        [HttpPost]
         public IActionResult Update(Department dep)
         {
             if(ModelState.IsValid) {

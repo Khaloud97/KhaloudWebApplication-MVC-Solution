@@ -1,6 +1,8 @@
 ﻿using KhaloudWebApplication_MVC_.BLL.Interface;
 using KhaloudWebApplication_MVC_.DAL.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,8 +35,17 @@ namespace KhaloudWebApplication_MVC_.BLL.Reposatory
 
         public T Get(int id) => _context.Set<T>().Find(id);
 
-        public IEnumerable<T> GetAll()=> _context.Set<T>().ToList();
-
+        public IEnumerable<T> GetAll()
+        {
+            if (typeof(T) == typeof(Employee))
+            {
+                return (IEnumerable <T>) _context.Employees.Include(e => e.Department).ToList();
+            }
+            else
+            {
+                return _context.Set<T>().ToList();
+            }
+        }
         public int Update(T item)
         {
             _context.Set<T>().Update(item);

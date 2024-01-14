@@ -9,5 +9,7 @@ namespace KhaloudWebApplication_MVC_.BLL.Interface
 {
     public interface IEmployeeReposatory : IGenericReposatory<Employee>
     {
+        IEnumerable<Employee> Search(string name);
+
     }
 }
